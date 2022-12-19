@@ -1,0 +1,27 @@
+        public async Task<string> RetriveJoke()
+        {
+            try
+            {
+                String response = await HttpClient.GetStringAsync("https://v2.jokeapi.dev/joke/Programming?type=single");
+                Joke joke = JsonConvert.DeserializeObject<Joke>(response);
+                    return joke.joke;
+            }
+            catch (HttpRequestException e)
+            {
+                Console.WriteLine("\nException Caught!");
+                Console.WriteLine("Message :{0} ", e.Message);
+            }
+            return "error on retrieving joke";
+        }
+    }
+    public class Joke
+    {
+        public Boolean error { get; set; }
+        public string category { get; set; }
+        public string type { get; set; }
+        public string joke { get; set; }
+        //public List<Boolean> flags { get; set; }
+        public int id { get; set; }
+        public Boolean safe { get; set; }
+        public string lang { get; set; }
+    }
